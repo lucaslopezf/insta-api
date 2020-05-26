@@ -1,5 +1,8 @@
 import {Page} from 'puppeteer';
 import { BrowserPuppeteer }from './BrowserPuppeteer';
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 export const getPage = async function getPage(url:string) : Promise<Page> {
     let page: Page;
@@ -9,7 +12,7 @@ export const getPage = async function getPage(url:string) : Promise<Page> {
     return page;
 }
 
-export const authenticate = async (username:string = '', password:string = '') : Promise<Boolean> =>  {
+export const authenticate = async () : Promise<boolean> =>  {
     const page = await getPage('https://www.instagram.com/accounts/login');
     await page.waitForSelector('input[name="username"]');
 
@@ -18,11 +21,13 @@ export const authenticate = async (username:string = '', password:string = '') :
 
     if(!usernameInput || !passwordInput) return false;
 
-    console.log(username);
+    const username = process.env.INSTAGRAM_USERNAME || 'no te esta tomando el usuario';
+    const password = process.env.INSTAGRAM_PASSWORD || '';
+
     await usernameInput.type(username, { delay: 100 });
     await passwordInput.type(password, { delay: 100 });
 
     await page.click('button[type="submit"]');
-    await page.waitFor(2000);
+    const result = await page.waitForNavigation();
     return true;
 };

@@ -7,10 +7,12 @@ export const publicMessage = async ({url,messages}: Post): Promise<void> => {
   
   if (!isInstagram(url)) throw new HTTP400Error("Ingresar una url de instagram");
   
-  const isAuth = await authenticate(process.env.INSTAGRAM_USERNAME,process.env.INSTAGRAM_PASSWORD);
+  const isAuth = await authenticate();
+  if(!isAuth) throw new HTTP400Error("Usuario y/o contraseña incorrecto");
+  
   const page = await getPage(url);
   console.log(messages);
-  for (const message of messages) commentPost(page,message);
+  //for (const message of messages) commentPost(page,message);
   await page.waitFor(10000);
 };
 
@@ -22,7 +24,7 @@ const commentPost = async (page: Page,message:string): Promise<void> => {
 
   await page.click('button[type="submit"]');
 
-  //await page.waitFor(10000);
+  await page.waitForNavigation();
 };
 
 const isInstagram = (url:string): boolean => {
