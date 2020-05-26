@@ -18,6 +18,7 @@ export const authenticate = async (username:string = '', password:string = '') :
 
     if(!usernameInput || !passwordInput) return false;
 
+    console.log(username);
     await usernameInput.type(username, { delay: 100 });
     await passwordInput.type(password, { delay: 100 });
 
