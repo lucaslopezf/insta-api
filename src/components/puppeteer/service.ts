@@ -21,7 +21,7 @@ export const authenticate = async () : Promise<boolean> =>  {
 
     if(!usernameInput || !passwordInput) return false;
 
-    const username = process.env.INSTAGRAM_USERNAME || 'no te esta tomando el usuario';
+    const username = process.env.INSTAGRAM_USERNAME || 'no te toma el usuario';
     const password = process.env.INSTAGRAM_PASSWORD || '';
 
     await usernameInput.type(username, { delay: 100 });
