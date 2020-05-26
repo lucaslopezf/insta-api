@@ -1,5 +1,4 @@
 import { logger } from './utils';
-import { connectDb } from './config/db';
 import { startServer } from './config/express';
 import { createBrowser } from './config/browser';
 import { LogEntry } from 'winston';
@@ -14,6 +13,5 @@ process.on('unhandledRejection', (e) => {
 });
 
 startServer(+(process.env.HTTP_PORT || 8080));
-connectDb();
 
 
