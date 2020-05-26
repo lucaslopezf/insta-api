@@ -1,0 +1,7 @@
+#tests
+test
+coverage
+
+#environment
+.env
+.config

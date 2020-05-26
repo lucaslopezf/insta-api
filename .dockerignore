@@ -1,0 +1,11 @@
+node_modules
+logs
+.yarnrc
+yarn.lock
+.gitignore
+.git
+Dockerfile*
+dockerfile*
+docker-compose*
+.dockerignore
+dist

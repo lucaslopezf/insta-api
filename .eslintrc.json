@@ -1,0 +1,29 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:security/recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "security"],
+  "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/naming-convention": 1
+  }
+}
