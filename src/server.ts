@@ -1,14 +1,12 @@
 import { logger } from './utils';
 import { startServer } from './config/express';
-import { createBrowser } from './config/browser';
-import { LogEntry } from 'winston';
 
 process.on('uncaughtException', (e) => {
   logger.error(e);
   process.exit(1);
 });
 process.on('unhandledRejection', (e) => {
-  logger.log(e as LogEntry);
+  console.log(e);
   process.exit(1);
 });
 
