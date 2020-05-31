@@ -11,5 +11,3 @@ process.on('unhandledRejection', (e) => {
 });
 
 startServer(+(process.env.HTTP_PORT || 8080));
-
-
