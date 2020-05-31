@@ -9,24 +9,29 @@ const random = (min:number, max:number) : number => {
   return min + Math.random() * (max - min);
 }
 
-export const publicMessage = async ({url,users}: Post): Promise<void> => {
-  const messages = permutaciones(users,users.length-1)
-
+export const publicMessage = async ({url,users,quantity,unique}: Post): Promise<void> => {
+  const messages = permutaciones(users,quantity-1)
+  
   if (!isInstagram(url)) throw new HTTP400Error("Ingresar una url de instagram");
   const isAuth = await authenticate();
   
   if(!isAuth) throw new HTTP400Error("Usuario y/o contraseña incorrecto");
+  for (const message of messages) await commentPost(url,message,unique);
 
-  const timeWaitSchedule = random(1000,2000);
-
-  cron.schedule(`0 */${timeWaitSchedule} * * * *`, async () :Promise<void> => {
+  cron.schedule(`31 */15 6 * * *`, async () :Promise<void> => {
     for (const message of messages) await commentPost(url,message);
   });
   
 };
 
 
-const commentPost = async (url: string,message:string): Promise<void> => {
+const commentPost = async (url: string,message:string,unique:Boolean = true): Promise<void> => {
+  
+  if(unique){
+    const messageSplit = message.split(',');
+    let uniqueMessage = [...new Set(messageSplit)]; 
+    if(uniqueMessage.length < messageSplit.length) return;
+  }
   const page = await getPage(url);
   const timeWaitComment = random(123,1231);
   const timeWait = random(2123,15431);
