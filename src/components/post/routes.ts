@@ -8,8 +8,8 @@ export default [
     method: 'post',
     handler: [
       async (req: Request, res: Response): Promise<void> => {
-        const result = await publicMessage(req.body);
-        res.status(HttpStatusCode.Ok).send(result);
+        await publicMessage(req.body);
+        res.status(HttpStatusCode.Ok).send('ok');
       },
     ],
   },
