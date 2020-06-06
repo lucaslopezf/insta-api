@@ -1,19 +1,29 @@
-FROM node:10.13.0-alpine
-
-ENV NODE_ENV=production
-ENV APP_PORT=8080
+FROM node:12.13.0 AS builder
 
 WORKDIR /usr/src/app
 
-COPY package.json .
-RUN npm install
+COPY package*.json ./
+COPY tsconfig*.json ./
+COPY ./src ./src
 
-RUN npm install pm2 -g
-
+RUN npm install -- production
+RUN npm install -g pm2
 RUN npm run build
 
-COPY ./dist .
+#
+# Production stage.
+# This state compile get back the JavaScript code from builder stage
+# It will also install the production package only
+#
+FROM node:12.13.0-alpine
 
-EXPOSE APP_PORT
+WORKDIR /app
+ENV NODE_ENV=production
 
-CMD ["pm2-runtime","server.js"]
+COPY package*.json ./
+
+EXPOSE $APP_PORT
+
+COPY --from=builder /usr/src/app/dist ./dist
+
+CMD ["npm","start"]

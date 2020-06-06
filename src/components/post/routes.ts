@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { publicMessage } from './service';
+import { publicComment } from './service';
 import { HttpStatusCode } from '../../commons/constants';
 
 export default [
@@ -8,7 +8,7 @@ export default [
     method: 'post',
     handler: [
       async (req: Request, res: Response): Promise<void> => {
-        await publicMessage(req.body);
+        await publicComment(req.body);
         res.status(HttpStatusCode.Ok).send('ok');
       },
     ],
