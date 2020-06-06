@@ -18,7 +18,7 @@ export class BrowserPuppeteer {
 
     static createBrowser = async () => {
     const browser = await launch({
-      headless: false,
+      headless: true,
       args: [process.env.AGENT_LANG || '--lang=en-US,en'],
     })
     return browser;
