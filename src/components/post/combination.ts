@@ -1,3 +1,5 @@
+import { separator } from '../../commons/constants';
+
 export const permutaciones = (messages:string[],cantidad:number) :any => {
 
     if(cantidad  < 1 || cantidad == undefined){
@@ -18,10 +20,10 @@ const permutarArray = (a1:string[],a2:string[]) =>{
         var map2 = a2.map( e2 =>{
                         if(Array.isArray(e2)){
                             const itemMap = [e1].concat(e2);
-                            return itemMap.join(',');
+                            return itemMap.join(separator);
                         }else{
                             const itemMap = [e1,e2];
-                            return itemMap.join(',');
+                            return itemMap.join(separator);
                         }
                     });
 

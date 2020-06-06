@@ -6,3 +6,5 @@ export enum Environment {
 }
 
 export const serviceName = 'instagram-post-api';
+
+export const separator = ' ';
