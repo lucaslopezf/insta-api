@@ -13,6 +13,10 @@ const makeComments = (users:string[], quantity:number) : string[] => {
   return comments.sort(() => Math.random() - 0.5);
 }
 
+const sleep = async (ms:number) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export const publicComment = async ({url,users,quantity,unique}: Post): Promise<void> => {
   
   const comments = makeComments(users,quantity);
