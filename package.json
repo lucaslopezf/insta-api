@@ -31,12 +31,13 @@
     "clearMocks": true
   },
   "dependencies": {
+    "@types/compression": "^1.7.0",
     "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.6",
     "@types/node-cron": "^2.0.3",
     "@types/puppeteer": "^3.0.0",
-    "@types/express": "^4.17.6",
+    "@types/puppeteer-core": "^2.0.0",
     "@types/uuid": "^7.0.2",
-    "@types/compression": "^1.7.0",
     "compression": "^1.7.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -46,9 +47,10 @@
     "node-cron": "^2.0.3",
     "pm2": "^4.2.3",
     "puppeteer": "^3.1.0",
+    "puppeteer-core": "^3.3.0",
+    "typescript": "^3.9.3",
     "uuid": "^7.0.3",
-    "winston": "^3.2.1",
-    "typescript": "^3.9.3"
+    "winston": "^3.2.1"
   },
   "performance-now": "^2.1.0",
   "devDependencies": {

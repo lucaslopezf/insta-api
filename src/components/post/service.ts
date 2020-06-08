@@ -1,10 +1,8 @@
-import {Page} from 'puppeteer';
 import { HTTP400Error,logger } from '../../utils';
 import { getPage,authenticate } from '../puppeteer/service';
 import { separator } from '../../commons/constants';
 import { Post } from './Post';
 import { permutaciones } from './combination';
-import cron from 'node-cron';
 
 const random = (min:number, max:number) : number => {
   return min + Math.random() * (max - min);
@@ -12,13 +10,13 @@ const random = (min:number, max:number) : number => {
 
 const makeComments = (users:string[], quantity:number) : string[] => {
   let comments: string[] = quantity == 1 ? users : permutaciones(users,quantity-1);
-  return comments.sort(Math.random);
+  return comments.sort(() => Math.random() - 0.5);
 }
 
 export const publicComment = async ({url,users,quantity,unique}: Post): Promise<void> => {
   
   const comments = makeComments(users,quantity);
-
+  console.log(comments);
   if (!isInstagram(url)) throw new HTTP400Error("Ingresar una url de instagram");
   const isAuth = await authenticate();
   
@@ -30,10 +28,6 @@ export const publicComment = async ({url,users,quantity,unique}: Post): Promise<
     counterComments++;
   }
   logger.info(`Total comments: ${counterComments}`);
-
-  // cron.schedule(`31 */15 6 * * *`, async () :Promise<void> => {
-  //   for (const message of messages) await commentPost(url,message,unique);
-  // });
   
 };
 

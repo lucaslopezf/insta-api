@@ -1,4 +1,5 @@
-import {Browser,launch} from 'puppeteer';
+import {Browser,launch as launchPuppeteer } from 'puppeteer';
+import { launch } from 'puppeteer-core';
 
 export class BrowserPuppeteer {
   private static browser: Browser;
@@ -17,11 +18,23 @@ export class BrowserPuppeteer {
   
 
     static createBrowser = async () => {
-    const browser = await launch({
-      headless: true,
-      args: [process.env.AGENT_LANG || '--lang=en-US,en'],
+      const headless = false;
+      const args = [process.env.AGENT_LANG || '--lang=en-US,en']; 
+      
+      if(process.env.BROWSER_PATH){
+        return await launch({
+          headless: headless,
+          args: args,
+          executablePath: process.env.BROWSER_PATH,
+          userDataDir: "./user_data"
+        }) 
+      }
+    
+      return await launchPuppeteer({
+      headless: headless,
+      args: args,
+      userDataDir: "./user_data"
     })
-    return browser;
   };
 
 }
