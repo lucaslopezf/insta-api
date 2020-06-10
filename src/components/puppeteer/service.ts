@@ -17,9 +17,9 @@ export const authenticate = async () : Promise<boolean> =>  {
     const password = process.env.INSTAGRAM_PASSWORD || '';
     const page = await getPage('https://www.instagram.com/accounts/login');
     
-    const isAuth = await page.$(`a[href*=${username}]`);
+    const isAuth = await page.$(`a[href*='${username}']`);
     
-    if(isAuth) return true;
+     if(isAuth) return true;
     
     await page.waitForSelector('input[name="username"]');
 

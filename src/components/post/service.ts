@@ -43,8 +43,8 @@ const commentPost = async (url: string,message:string,unique:Boolean = true): Pr
     if(uniqueMessage.length < messageSplit.length) return;
   }
   const page = await getPage(url);
-  const timeWaitComment = random(123,1231);
-  const timeWait = random(5123,13324);
+  const timeWaitComment = random(125,1324);
+  const timeWait = random(timeWaitComment+5217,32542);
   const textTareaComment = 'textarea';
 
   await page.waitForSelector(textTareaComment);
