@@ -1,17 +1,17 @@
 import { separator } from '../../commons/constants';
 
-export const permutaciones = (messages:string[],cantidad:number) :any => {
+export const permutations = (messages:string[],quantity:number) :any => {
 
-    if(cantidad  < 1 || cantidad == undefined){
-        cantidad = 1;
+    if(quantity  < 1 || quantity == undefined){
+        quantity = 1;
     }
 
-    if(cantidad == 1) return permutarArray(messages,messages);
+    if(quantity == 1) return permuteArray(messages,messages);
 
-    return permutarArray(messages,permutaciones(messages,cantidad-1));
+    return permuteArray(messages,permutations(messages,quantity-1));
 }
 
-const permutarArray = (a1:string[],a2:string[]) =>{
+const permuteArray = (a1:string[],a2:string[]) =>{
 
     let result:any = [];
 

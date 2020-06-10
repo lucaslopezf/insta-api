@@ -2,14 +2,14 @@ import { HTTP400Error,logger } from '../../utils';
 import { getPage,authenticate } from '../puppeteer/service';
 import { separator } from '../../commons/constants';
 import { Post } from './Post';
-import { permutaciones } from './combination';
+import { permutations } from './combination';
 
 const random = (min:number, max:number) : number => {
   return min + Math.random() * (max - min);
 }
 
 const makeComments = (users:string[], quantity:number) : string[] => {
-  let comments: string[] = quantity == 1 ? users : permutaciones(users,quantity-1);
+  let comments: string[] = quantity == 1 ? users : permutations(users,quantity-1);
   return comments.sort(() => Math.random() - 0.5);
 }
 
@@ -17,9 +17,9 @@ const sleep = async (ms:number) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export const publicComment = async ({url,users,quantity,unique}: Post): Promise<void> => {
+export const publicComment = async ({url,users,quantity,comments,unique}: Post): Promise<void> => {
   
-  const comments = makeComments(users,quantity);
+  const commentsPost = comments ?? makeComments(users,quantity);
   console.log(comments);
   if (!isInstagram(url)) throw new HTTP400Error("Ingresar una url de instagram");
   const isAuth = await authenticate();
@@ -27,7 +27,7 @@ export const publicComment = async ({url,users,quantity,unique}: Post): Promise<
   if(!isAuth) throw new HTTP400Error("Usuario y/o contraseña incorrecto");
   let counterComments = 0;
 
-  for (const comment of comments) { 
+  for (const comment of commentsPost) { 
     await commentPost(url,comment,unique);
     counterComments++;
   }
@@ -42,6 +42,7 @@ const commentPost = async (url: string,message:string,unique:Boolean = true): Pr
     let uniqueMessage = [...new Set(messageSplit)]; 
     if(uniqueMessage.length < messageSplit.length) return;
   }
+
   const page = await getPage(url);
   const timeWaitComment = random(125,1324);
   const timeWait = random(timeWaitComment+5217,32542);

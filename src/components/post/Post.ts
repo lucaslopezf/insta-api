@@ -3,4 +3,5 @@ export interface Post {
   users: string[];
   quantity: number;
   unique: Boolean;
+  comments: string[];
 }
