@@ -36,7 +36,7 @@ export const publicComment = async ({url,quantity,comment : { customizableCommen
 };
 
 
-const commentPost = async (url: string,message:string,hashtag: string,unique:Boolean = true): Promise<void> => {
+const commentPost = async (url: string,message:string,hashtag: string = '',unique:Boolean = true): Promise<void> => {
   if(unique){
     const messageSplit = message.split(separator);
     let uniqueMessage = [...new Set(messageSplit)]; 
