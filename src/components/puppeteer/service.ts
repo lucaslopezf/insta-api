@@ -1,5 +1,5 @@
 import {Page} from 'puppeteer';
-import { BrowserPuppeteer }from './BrowserPuppeteer';
+import { BrowserPuppeteer } from './BrowserPuppeteer';
 import * as dotenv from "dotenv";
 
 dotenv.config();

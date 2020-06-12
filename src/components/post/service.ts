@@ -17,10 +17,10 @@ const sleep = async (ms:number) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export const publicComment = async ({url,users,quantity,comments,unique}: Post): Promise<void> => {
+export const publicComment = async ({url,quantity,comment : { customizableComments,users,hashtag},unique}: Post): Promise<void> => {
   
-  const commentsPost = comments ?? makeComments(users,quantity);
-  console.log(comments);
+  const commentsPost = customizableComments ?? makeComments(users,quantity);
+  
   if (!isInstagram(url)) throw new HTTP400Error("Ingresar una url de instagram");
   const isAuth = await authenticate();
   
@@ -28,7 +28,7 @@ export const publicComment = async ({url,users,quantity,comments,unique}: Post):
   let counterComments = 0;
 
   for (const comment of commentsPost) { 
-    await commentPost(url,comment,unique);
+    await commentPost(url,comment,hashtag,unique);
     counterComments++;
   }
   logger.info(`Total comments: ${counterComments}`);
@@ -36,7 +36,7 @@ export const publicComment = async ({url,users,quantity,comments,unique}: Post):
 };
 
 
-const commentPost = async (url: string,message:string,unique:Boolean = true): Promise<void> => {
+const commentPost = async (url: string,message:string,hashtag: string,unique:Boolean = true): Promise<void> => {
   if(unique){
     const messageSplit = message.split(separator);
     let uniqueMessage = [...new Set(messageSplit)]; 
@@ -49,7 +49,7 @@ const commentPost = async (url: string,message:string,unique:Boolean = true): Pr
   const textTareaComment = 'textarea';
 
   await page.waitForSelector(textTareaComment);
-  await page.type(textTareaComment, message,{ delay: timeWaitComment });
+  await page.type(textTareaComment, `${hashtag} ${message}`,{ delay: timeWaitComment });
   
   await page.click('button[type="submit"]');
   await page.waitFor(timeWait);
