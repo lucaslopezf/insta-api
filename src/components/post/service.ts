@@ -28,7 +28,7 @@ export const publicComment = async ({url,quantity,comment : { customizableCommen
   if(!isAuth) throw new HTTP400Error("Usuario y/o contraseña incorrecto");
   
   const page = await getPage(url);
-  logger.info(`Total comments: ${commentsPost.length}`);
+  logger.info(`Total comments to post: ${commentsPost.length}`);
   for (const comment of commentsPost) await commentPost(page,comment,hashtag,unique);
   
 };
