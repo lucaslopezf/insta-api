@@ -2,6 +2,7 @@ import { HTTP400Error,logger } from '../../utils';
 import { getPage,authenticate } from '../puppeteer/service';
 import { separator } from '../../commons/constants';
 import { Post } from './Post';
+import { Page } from 'puppeteer';
 import { permutations } from './combination';
 
 const random = (min:number, max:number) : number => {
@@ -27,8 +28,9 @@ export const publicComment = async ({url,quantity,comment : { customizableCommen
   if(!isAuth) throw new HTTP400Error("Usuario y/o contraseña incorrecto");
   let counterComments = 0;
 
+  const page = await getPage(url);
   for (const comment of commentsPost) { 
-    await commentPost(url,comment,hashtag,unique);
+    await commentPost(page,comment,hashtag,unique);
     counterComments++;
   }
   logger.info(`Total comments: ${counterComments}`);
@@ -36,14 +38,13 @@ export const publicComment = async ({url,quantity,comment : { customizableCommen
 };
 
 
-const commentPost = async (url: string,message:string,hashtag: string = '',unique:Boolean = true): Promise<void> => {
+const commentPost = async (page: Page,message:string,hashtag: string = '',unique:Boolean = true): Promise<void> => {
   if(unique){
     const messageSplit = message.split(separator);
     let uniqueMessage = [...new Set(messageSplit)]; 
     if(uniqueMessage.length < messageSplit.length) return;
   }
 
-  const page = await getPage(url);
   const timeWaitComment = random(125,1324);
   const timeWait = random(timeWaitComment+5217,32542);
   const textTareaComment = 'textarea';
