@@ -26,33 +26,32 @@ export const publicComment = async ({url,quantity,comment : { customizableCommen
   const isAuth = await authenticate();
   
   if(!isAuth) throw new HTTP400Error("Usuario y/o contraseña incorrecto");
-  let counterComments = 0;
-
+  
   const page = await getPage(url);
-  for (const comment of commentsPost) { 
-    await commentPost(page,comment,hashtag,unique);
-    counterComments++;
-  }
-  logger.info(`Total comments: ${counterComments}`);
+  logger.info(`Total comments: ${commentsPost.length}`);
+  for (const comment of commentsPost) await commentPost(page,comment,hashtag,unique);
   
 };
 
 
+let counterComments = 0;
 const commentPost = async (page: Page,message:string,hashtag: string = '',unique:Boolean = true): Promise<void> => {
   if(unique){
     const messageSplit = message.split(separator);
     let uniqueMessage = [...new Set(messageSplit)]; 
     if(uniqueMessage.length < messageSplit.length) return;
   }
-
+  const textTareaComment = 'textarea';
+  const buttonSubmit = 'button[type="submit"]';
+  
   const timeWaitComment = random(125,1324);
   const timeWait = random(timeWaitComment+5217,32542);
-  const textTareaComment = 'textarea';
-
   await page.waitForSelector(textTareaComment);
   await page.type(textTareaComment, `${hashtag} ${message}`,{ delay: timeWaitComment });
   
-  await page.click('button[type="submit"]');
+  const subtmitOk = await page.click(buttonSubmit);
+  counterComments++;
+  logger.info(`Counter: ${counterComments}`);
   await page.waitFor(timeWait);
 };
 
