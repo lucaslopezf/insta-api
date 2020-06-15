@@ -20,7 +20,6 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 COPY package*.json ./
-COPY knexfile.js ./
 
 RUN npm install -g pm2
 
