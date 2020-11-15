@@ -1,70 +1,71 @@
 import { Request, Response } from 'express';
 import { publicComment, likePost, makeAuth, followUser, unfollowUser, savePost } from './service';
 import { HttpStatusCode } from '../../commons/constants';
+import { Paths } from './utils/constants';
 
 export default [
   {
-    path: '/make_comments/',
+    path: Paths.Logged,
     method: 'post',
     handler: [
       async (req: Request, res: Response): Promise<void> => {
-        await publicComment(req.body);
         res.status(HttpStatusCode.Ok).send('ok');
-      },
-    ],
-  },
-  {
-    path: '/save_post/',
-    method: 'post',
-    handler: [
-      async (req: Request, res: Response): Promise<void> => {
-        await savePost(req.body);
-        res.status(HttpStatusCode.Ok).send('ok');
-      },
-    ],
-  },
-  {
-    path: '/logged/',
-    method: 'post',
-    handler: [
-      async (req: Request, res: Response): Promise<void> => {
         await makeAuth();
-        res.status(HttpStatusCode.Ok).send('ok');
       },
     ],
   },
   {
-    path: '/like/',
+    path: Paths.MakeComments,
     method: 'post',
     handler: [
-      async (req: Request, res: Response): Promise<void> => {
-        await likePost(req.body);
+      async ({ body }: Request, res: Response): Promise<void> => {
         res.status(HttpStatusCode.Ok).send('ok');
+        await publicComment(body);
       },
     ],
   },
   {
-    path: '/follow/',
+    path: Paths.SavePost,
     method: 'post',
     handler: [
-      async (req: Request, res: Response): Promise<void> => {
-        await followUser(req.body);
+      async ({ body }: Request, res: Response): Promise<void> => {
         res.status(HttpStatusCode.Ok).send('ok');
+        await savePost(body);
       },
     ],
   },
   {
-    path: '/unfollow/',
+    path: Paths.Like,
     method: 'post',
     handler: [
-      async (req: Request, res: Response): Promise<void> => {
-        await unfollowUser(req.body);
+      async ({ body }: Request, res: Response): Promise<void> => {
         res.status(HttpStatusCode.Ok).send('ok');
+        await likePost(body);
       },
     ],
   },
   {
-    path: '/ping',
+    path: Paths.Follow,
+    method: 'post',
+    handler: [
+      async ({ body }: Request, res: Response): Promise<void> => {
+        res.status(HttpStatusCode.Ok).send('ok');
+        await followUser(body);
+      },
+    ],
+  },
+  {
+    path: Paths.Unfollow,
+    method: 'post',
+    handler: [
+      async ({ body }: Request, res: Response): Promise<void> => {
+        res.status(HttpStatusCode.Ok).send('ok');
+        await unfollowUser(body);
+      },
+    ],
+  },
+  {
+    path: Paths.Ping,
     method: 'get',
     handler: [
       async (req: Request, res: Response): Promise<void> => {

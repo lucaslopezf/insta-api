@@ -1,3 +1,3 @@
-import postRoutes from './post/routes';
+import postRoutes from './instagram/routes';
 
-export default [...postRoutes,];
+export default [...postRoutes];
