@@ -1,8 +1,6 @@
 export interface Post {
   url: string;
-  quantity: number;
-  unique: Boolean;
-  comment: Comment;
+  customizableComments: string[];
   timeWait: TimeWait;
   user: User;
 }
@@ -17,8 +15,3 @@ export interface User {
   password: string;
 }
 
-export interface Comment {
-  customizableComments: string[];
-  users: string[];
-  hashtag: string;
-}

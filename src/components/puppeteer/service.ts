@@ -1,6 +1,7 @@
 import {Page} from 'puppeteer';
 import { BrowserPuppeteer } from './BrowserPuppeteer';
 import * as dotenv from "dotenv";
+import { logger} from '../../utils';
 
 dotenv.config();
 
@@ -18,21 +19,20 @@ export const authenticate = async () : Promise<boolean> =>  {
     const page = await getPage('https://www.instagram.com/accounts/login');
     
     const isAuth = await page.$(`a[href*='${username}']`);
-    
-     if(isAuth) return true;
-    
+    //TODO: Creo que nunca entra a este if, ni al de abajo. Verificar y elimianr o fixear.
+    if(isAuth) return true;
+
     await page.waitForSelector('input[name="username"]');
 
     const usernameInput = await page.$('input[name="username"]');
     const passwordInput = await page.$('input[name="password"]');
-
     if(!usernameInput || !passwordInput) return false;
-
 
     await usernameInput.type(username, { delay: 100 });
     await passwordInput.type(password, { delay: 100 });
-
+    
     await page.click('button[type="submit"]');
+    //TODO: si la contra es incorrecta esto devuelve 500 por timeout
     const result = await page.waitForNavigation();
     return true;
 };
