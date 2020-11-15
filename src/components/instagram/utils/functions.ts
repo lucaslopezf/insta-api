@@ -12,6 +12,7 @@ import { ErrorComment } from '../models';
 export const followUserFromPage = async (page: Page, min: number = 12213, max: number = 35123): Promise<void> => {
   const buttonsFollow = await page.$x(buttonFollowFromPost);
   const timeWaitBetweenFollows = random(min, max);
+  logger.info(`Users for follows: ${buttonsFollow.length}`);
   if (buttonsFollow) {
     for (const buttonFollow of buttonsFollow) {
       await buttonFollow.click();
@@ -20,6 +21,7 @@ export const followUserFromPage = async (page: Page, min: number = 12213, max: n
   }
 
   const buttonsFollowBack = await page.$x(buttonFollowBackFromPost);
+  logger.info(`Users for follow backs: ${buttonsFollowBack.length}`);
   if (buttonsFollowBack) {
     for (const buttonFollowBack of buttonsFollowBack) {
       await buttonFollowBack.click();

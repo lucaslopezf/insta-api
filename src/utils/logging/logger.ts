@@ -19,10 +19,10 @@ winston.exceptions.handle(transports.console);
 //Config log request and response
 const formatMessage = 'HTTP {{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}}';
 export const configLoggerRequestResponse = {
-  ignoredRoutes: [CommonPath.Health],
+  ignoredRoutes: [CommonPath.Health, CommonPath.Ping],
   transports: [transports.console],
   format: winston.format.combine(winston.format.timestamp(), winston.format.metadata(), winston.format.json()),
   meta: true,
   baseMeta: { service: serviceName },
-  msg: formatMessage
+  msg: formatMessage,
 };

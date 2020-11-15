@@ -10,3 +10,8 @@ export enum HttpStatusErrorCode {
   InternalServerError = 500,
   ServiceUnavailable = 503,
 }
+
+export enum CommonPath {
+  Health = '/health',
+  Ping = '/ping',
+}

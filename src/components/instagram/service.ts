@@ -15,11 +15,11 @@ export const publicComment = async ({ url, customizableComments }: Post): Promis
   for (const comment of customizableComments) await commentPost(page, comment);
 };
 
-export const followUser = async ({ url, timeWait: { min, max } }: Post): Promise<void> => {
+export const followUser = async ({ url, timeWait }: Post): Promise<void> => {
   const page = await getPage(url);
   logger.info(`Follow the url: ${url}`);
-  //await sleep(2000);
-  await followUserFromPage(page, min, max);
+  //await sleep(20000);
+  await followUserFromPage(page, timeWait?.min, timeWait?.max);
 };
 
 export const unfollowUser = async ({ url }: Post): Promise<void> => {

@@ -19,8 +19,8 @@ export default [
     method: 'post',
     handler: [
       async ({ body }: Request, res: Response): Promise<void> => {
-        res.status(HttpStatusCode.Ok).send('ok');
         await publicComment(body);
+        res.status(HttpStatusCode.Ok).send('ok');
       },
     ],
   },
@@ -49,8 +49,8 @@ export default [
     method: 'post',
     handler: [
       async ({ body }: Request, res: Response): Promise<void> => {
-        res.status(HttpStatusCode.Ok).send('ok');
         await followUser(body);
+        res.status(HttpStatusCode.Ok).send('ok');
       },
     ],
   },
