@@ -9,9 +9,9 @@ import {
 import { logger, random } from '../../../utils';
 import { ErrorComment } from '../models';
 
-export const followUserFromPage = async (page: Page): Promise<void> => {
+export const followUserFromPage = async (page: Page, min: number = 12213, max: number = 35123): Promise<void> => {
   const buttonsFollow = await page.$x(buttonFollowFromPost);
-  const timeWaitBetweenFollows = random(12213, 35123);
+  const timeWaitBetweenFollows = random(min, max);
   if (buttonsFollow) {
     for (const buttonFollow of buttonsFollow) {
       await buttonFollow.click();

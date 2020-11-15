@@ -5,4 +5,4 @@ export enum Environment {
   Production = 'production',
 }
 
-export const serviceName = 'instagram-post-api';
+export const serviceName = 'instagram-api';
