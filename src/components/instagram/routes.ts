@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { publicComment, likePost, makeAuth, followUser, unfollowUser, savePost } from './service';
 import { HttpStatusCode } from '../../commons/constants';
-import { Paths } from './utils/constants';
+import { Paths } from './utils/Paths';
 
 export default [
   {
@@ -9,8 +9,8 @@ export default [
     method: 'post',
     handler: [
       async (req: Request, res: Response): Promise<void> => {
-        res.status(HttpStatusCode.Ok).send('ok');
         await makeAuth();
+        res.status(HttpStatusCode.Ok).send('ok');
       },
     ],
   },
@@ -29,8 +29,8 @@ export default [
     method: 'post',
     handler: [
       async ({ body }: Request, res: Response): Promise<void> => {
-        res.status(HttpStatusCode.Ok).send('ok');
         await savePost(body);
+        res.status(HttpStatusCode.Ok).send('ok');
       },
     ],
   },
@@ -39,8 +39,8 @@ export default [
     method: 'post',
     handler: [
       async ({ body }: Request, res: Response): Promise<void> => {
-        res.status(HttpStatusCode.Ok).send('ok');
         await likePost(body);
+        res.status(HttpStatusCode.Ok).send('ok');
       },
     ],
   },
@@ -59,8 +59,8 @@ export default [
     method: 'post',
     handler: [
       async ({ body }: Request, res: Response): Promise<void> => {
-        res.status(HttpStatusCode.Ok).send('ok');
         await unfollowUser(body);
+        res.status(HttpStatusCode.Ok).send('ok');
       },
     ],
   },
