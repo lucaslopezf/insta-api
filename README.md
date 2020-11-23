@@ -33,7 +33,7 @@ If everything is ok you will see a message like this
 {"message":"Server is running 8080","level":"info","service":"instagram-api","timestamp":"2020-11-22T23:23:15.514Z"}
 ```
 
-Specification: - [swagger](https://github.com/lucaslopezf/insta-api/src/config/swagger.yaml)
+Specification: [swagger](https://github.com/lucaslopezf/insta-api/blob/master/src/config/swagger.yaml)
 
 ## Todo's
 
