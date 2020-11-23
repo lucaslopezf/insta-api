@@ -1,12 +1,14 @@
 import { logger } from './utils';
 import { startServer } from './config/express';
+import dotenv from 'dotenv';
+dotenv.config();
 
 process.on('uncaughtException', (e) => {
   logger.error(e);
   process.exit(1);
 });
 process.on('unhandledRejection', (e) => {
-  console.log(e);
+  logger.error({ e });
   process.exit(1);
 });
 

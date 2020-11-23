@@ -1,19 +1,17 @@
 {
-  "name": "instagram-api",
+  "name": "insta-api",
   "version": "2.0.0",
   "description": "",
   "scripts": {
     "build": "tsc -p .",
     "dev": "tsc-watch --onSuccess \"node ./dist/server.js\"",
-    "test:dev": "jest --collectCoverage",
-    "test": "jest",
+    "test": "jest --collectCoverage",
     "debug": "node --debug-brk --inspect ./node_modules/.bin/jest -i",
-    "start": "pm2-runtime start ./dist/server.js",
-    "start:dev": "node ./dist/server.js",
+    "start": "node ./dist/server.js",
     "lint": "eslint --fix --ext .ts ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Lucas Francisco Lopez",
   "license": "ISC",
   "jest": {
     "verbose": true,
@@ -46,14 +44,13 @@
     "express-winston": "^4.0.3",
     "fs": "0.0.1-security",
     "node-cron": "^2.0.3",
-    "pm2": "^4.2.3",
     "puppeteer": "^3.1.0",
     "puppeteer-core": "^3.3.0",
     "typescript": "^3.9.3",
     "uuid": "^7.0.3",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "performance-now": "^2.1.0"
   },
-  "performance-now": "^2.1.0",
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "@types/request-promise": "^4.1.46",

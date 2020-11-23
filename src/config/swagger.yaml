@@ -1,0 +1,119 @@
+swagger: '2.0'
+info:
+  description: 'instagram unofficial API'
+  version: '2.0.0'
+  title: 'Insta API'
+tags:
+  - name: 'Instagram'
+    description: 'Instagram actions'
+paths:
+  /logged:
+    post:
+      tags:
+        - 'Instagram'
+      summary: 'Login with .env credentials'
+      responses:
+        '200':
+          description: 'successful operation'
+  /make_comments:
+    post:
+      tags:
+        - 'Instagram'
+      summary: 'Make comments'
+      parameters:
+        - in: 'body'
+          name: 'body'
+          required: true
+          schema:
+            $ref: '#/definitions/Post'
+      responses:
+        '200':
+          description: 'successful operation'
+  /save_post:
+    post:
+      tags:
+        - 'Instagram'
+      summary: 'Save post'
+      parameters:
+        - in: 'body'
+          name: 'body'
+          required: true
+          schema:
+            $ref: '#/definitions/InstagramCommon'
+      responses:
+        '200':
+          description: 'successful operation'
+  /like:
+    post:
+      tags:
+        - 'Instagram'
+      summary: 'Like a post'
+      parameters:
+        - in: 'body'
+          name: 'body'
+          required: true
+          schema:
+            $ref: '#/definitions/InstagramCommon'
+      responses:
+        '200':
+          description: 'successful operation'
+  /follow:
+    post:
+      tags:
+        - 'Instagram'
+      summary: 'Follow user or users'
+      parameters:
+        - in: 'body'
+          name: 'body'
+          required: true
+          schema:
+            $ref: '#/definitions/FollowUser'
+      responses:
+        '200':
+          description: 'successful operation'
+  /unfollow:
+    post:
+      tags:
+        - 'Instagram'
+      summary: 'Unfollow user'
+      parameters:
+        - in: 'body'
+          name: 'body'
+          required: true
+          schema:
+            $ref: '#/definitions/InstagramCommon'
+      responses:
+        '200':
+          description: 'successful operation'
+definitions:
+  InstagramCommon:
+    type: 'object'
+    properties:
+      url:
+        type: 'string'
+  Post:
+    type: 'object'
+    properties:
+      url:
+        type: 'string'
+      customizableComments:
+        type: 'array'
+        items:
+          type: 'string'
+  FollowUser:
+    type: 'object'
+    properties:
+      url:
+        type: 'string'
+      timeWait:
+        type: 'object'
+        $ref: '#/definitions/TimeWait'
+  TimeWait:
+    type: 'object'
+    properties:
+      min:
+        type: 'number'
+        description: 'Min time'
+      max:
+        type: 'number'
+        description: 'Max time'

@@ -3,6 +3,8 @@ import { getPage, authenticate } from '../puppeteer/service';
 import { buttonLike, buttonSavePost, buttonFollowingFromPost, buttonUnfollow } from '../../commons/constants';
 import { Post } from './models';
 import { commentPost, followUserFromPage } from './utils/functions';
+import { FollowUser } from './models/FollowUser';
+import { InstagramCommon } from './models/InstagramCommon';
 
 export const makeAuth = async (): Promise<void> => {
   const isAuth = await authenticate();
@@ -15,33 +17,29 @@ export const publicComment = async ({ url, customizableComments }: Post): Promis
   for (const comment of customizableComments) await commentPost(page, comment);
 };
 
-export const followUser = async ({ url, timeWait }: Post): Promise<void> => {
+export const followUser = async ({ url, timeWait, sleepTime = 0 }: FollowUser): Promise<void> => {
   const page = await getPage(url);
   logger.info(`Follow the url: ${url}`);
-  //await sleep(20000);
+  await sleep(sleepTime);
   await followUserFromPage(page, timeWait?.min, timeWait?.max);
 };
 
-export const unfollowUser = async ({ url }: Post): Promise<void> => {
+export const unfollowUser = async ({ url }: InstagramCommon): Promise<void> => {
   const page = await getPage(url);
   logger.info(`Unfollow the url: ${url}`);
-  await sleep(10000);
   await page.click(buttonFollowingFromPost);
   await page.waitFor(2000);
   await page.click(buttonUnfollow);
-  await page.waitFor(2000);
 };
 
-export const likePost = async ({ url }: Post): Promise<void> => {
+export const likePost = async ({ url }: InstagramCommon): Promise<void> => {
   const page = await getPage(url);
   logger.info(`Like to: ${url}`);
   await page.click(buttonLike);
-  await page.waitFor(2000);
 };
 
-export const savePost = async ({ url }: Post): Promise<void> => {
+export const savePost = async ({ url }: InstagramCommon): Promise<void> => {
   const page = await getPage(url);
   logger.info(`Save the url: ${url}`);
   await page.click(buttonSavePost);
-  await page.waitFor(2000);
 };

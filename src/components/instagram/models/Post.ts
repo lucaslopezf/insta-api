@@ -1,17 +1,5 @@
-export interface Post {
-  url: string;
+import { InstagramCommon } from './InstagramCommon';
+
+export interface Post extends InstagramCommon {
   customizableComments: string[];
-  timeWait: TimeWait;
-  user: User;
 }
-
-export interface TimeWait {
-  min: number;
-  max: number;
-}
-
-export interface User {
-  username: string;
-  password: string;
-}
-
